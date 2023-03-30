@@ -26,7 +26,6 @@ import {
 } from "@chakra-ui/react";
 import { Spinner, Text } from "@chakra-ui/react";
 import { BsStar, BsStarFill, BsStarHalf, BsWhatsapp } from "react-icons/bs";
-
 import { FiShoppingCart } from "react-icons/fi";
 import { AiOutlineRight, AiOutlineArrowRight } from "react-icons/ai";
 import { FaFilter } from "react-icons/fa";
@@ -41,10 +40,10 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 import "../allproduct.css";
-
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMensData } from "../Redux/products/action";
-import { Link } from "react-router-dom";
+
 const data = {
   isNew: true,
   imageURL:
@@ -124,8 +123,7 @@ const Mens = () => {
         m={"5px"}
       >
         <BreadcrumbItem>
-          {/* <Link to={"/"}>Productify</Link> */}
-          Cartify
+          <Link to={"/"}>Cartify</Link>
         </BreadcrumbItem>
 
         <BreadcrumbItem isCurrentPage>
@@ -173,12 +171,12 @@ const Mens = () => {
                       T-Shirts
                     </Checkbox>
                     <Checkbox value={"Kurtas"} colorScheme="green">
-                      Kurta
+                      Kurtas
                     </Checkbox>
                     <Checkbox value={"Shirts"} colorScheme="green">
                       Shirts
                     </Checkbox>
-                  </Stack>
+                  </Stack>{" "}
                 </CheckboxGroup>
 
                 <Heading
@@ -259,7 +257,7 @@ const Mens = () => {
                 T-Shirts
               </Checkbox>
               <Checkbox value={"Kurtas"} colorScheme="green">
-                Kurta
+                Kurtas
               </Checkbox>
               <Checkbox value={"Shirts"} colorScheme="green">
                 Shirts
@@ -342,7 +340,7 @@ const Mens = () => {
                     alignItems="center"
                     justifyContent="center"
                   >
-                    <Link to={`/men/${item.id}`}>
+                    <Link to={`/mens/${item.id}`}>
                       {" "}
                       <Box
                         maxW="sm"
@@ -363,8 +361,8 @@ const Mens = () => {
 
                         <Image
                           m="auto"
-                          width={{ base: "190px", md: "270px", lg: "300px" }}
-                          height={{ base: "200px", md: "270px", lg: "300px" }}
+                          width={{ base: "150px", md: "150px", lg: "250px" }}
+                          height={{ base: "150px", md: "150px", lg: "220px" }}
                           src={item.image}
                           alt={`Picture of ${item.title}`}
                           roundedTop="lg"
@@ -404,7 +402,7 @@ const Mens = () => {
                             alignContent="center"
                           >
                             <Text fontSize="sm" fontWeight="semibold">
-                              {item.category}
+                              {item.title}
                             </Text>
                           </Flex>
 
@@ -412,18 +410,14 @@ const Mens = () => {
                             justifyContent="space-between"
                             alignContent="center"
                           >
-                            {/* <Rating
-                            rating={item.rating}
-                            numReviews={item.reviews}
-                          /> */}
-
+                            <Rating rating={4} numReviews={item.reviews} />
                             {"  "}
                           </Flex>
                           <Box fontSize="2xl">
                             <Box as="span" color={"gray.600"} fontSize="2xl">
                               ₹
                             </Box>
-                            {item.price}
+                            {(item.price * 80).toFixed(2)}
                           </Box>
                         </Box>
                       </Box>

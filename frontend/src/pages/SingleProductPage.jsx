@@ -16,10 +16,30 @@ import {
   List,
   ListItem,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { MdLocalShipping } from "react-icons/md";
-
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 export default function Simple() {
+  const location = useLocation();
+  const [data, setData] = useState({});
+  console.log(data);
+  const handleGetData = () => {
+    axios
+      .get(`https://shopkaro-backend.onrender.com${location.pathname}`)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    handleGetData();
+  }, []);
   return (
     <Container maxW={"7xl"}>
       <SimpleGrid
@@ -31,9 +51,7 @@ export default function Simple() {
           <Image
             rounded={"md"}
             alt={"product image"}
-            src={
-              "https://images.unsplash.com/photo-1596516109370-29001ec8ec36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODE1MDl8MHwxfGFsbHx8fHx8fHx8fDE2Mzg5MzY2MzE&ixlib=rb-1.2.1&q=80&w=1080"
-            }
+            src={data.image}
             fit={"cover"}
             align={"center"}
             w={"100%"}
@@ -47,17 +65,38 @@ export default function Simple() {
               fontWeight={600}
               fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
             >
-              Automatic Watch
+              {data.name}
             </Heading>
             <Text
               color={useColorModeValue("gray.900", "gray.400")}
               fontWeight={300}
               fontSize={"2xl"}
             >
-              $350.00 USD
+              ₹{data.price}
             </Text>
           </Box>
 
+          <Button
+            rounded={"none"}
+            w={"full"}
+            mt={8}
+            size={"lg"}
+            py={"7"}
+            bg={useColorModeValue("gray.900", "gray.50")}
+            color={useColorModeValue("white", "gray.900")}
+            textTransform={"uppercase"}
+            _hover={{
+              transform: "translateY(2px)",
+              boxShadow: "lg",
+            }}
+          >
+            Add to cart
+          </Button>
+
+          <Stack direction="row" alignItems="center" justifyContent={"center"}>
+            <MdLocalShipping />
+            <Text>2-3 business days delivery</Text>
+          </Stack>
           <Stack
             spacing={{ base: 4, sm: 6 }}
             direction={"column"}
@@ -67,22 +106,6 @@ export default function Simple() {
               />
             }
           >
-            <VStack spacing={{ base: 4, sm: 6 }}>
-              <Text
-                color={useColorModeValue("gray.500", "gray.400")}
-                fontSize={"2xl"}
-                fontWeight={"300"}
-              >
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore
-              </Text>
-              <Text fontSize={"lg"}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad
-                aliquid amet at delectus doloribus dolorum expedita hic, ipsum
-                maxime modi nam officiis porro, quae, quisquam quos
-                reprehenderit velit? Natus, totam.
-              </Text>
-            </VStack>
             <Box>
               <Text
                 fontSize={{ base: "16px", lg: "18px" }}
@@ -164,28 +187,6 @@ export default function Simple() {
                 </ListItem>
               </List>
             </Box>
-          </Stack>
-
-          <Button
-            rounded={"none"}
-            w={"full"}
-            mt={8}
-            size={"lg"}
-            py={"7"}
-            bg={useColorModeValue("gray.900", "gray.50")}
-            color={useColorModeValue("white", "gray.900")}
-            textTransform={"uppercase"}
-            _hover={{
-              transform: "translateY(2px)",
-              boxShadow: "lg",
-            }}
-          >
-            Add to cart
-          </Button>
-
-          <Stack direction="row" alignItems="center" justifyContent={"center"}>
-            <MdLocalShipping />
-            <Text>2-3 business days delivery</Text>
           </Stack>
         </Stack>
       </SimpleGrid>
