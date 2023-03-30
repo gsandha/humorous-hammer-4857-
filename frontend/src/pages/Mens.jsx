@@ -25,7 +25,7 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import { Spinner, Text } from "@chakra-ui/react";
-import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import { BsStar, BsStarFill, BsStarHalf, BsWhatsapp } from "react-icons/bs";
 import { FiShoppingCart } from "react-icons/fi";
 import { AiOutlineRight, AiOutlineArrowRight } from "react-icons/ai";
 import { FaFilter } from "react-icons/fa";
@@ -40,9 +40,10 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 import "../allproduct.css";
-
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMensData } from "../Redux/products/action";
+
 const data = {
   isNew: true,
   imageURL:
@@ -122,8 +123,7 @@ const Mens = () => {
         m={"5px"}
       >
         <BreadcrumbItem>
-          {/* <Link to={"/"}>Productify</Link> */}
-          Cartify
+          <Link to={"/"}>Cartify</Link>
         </BreadcrumbItem>
 
         <BreadcrumbItem isCurrentPage>
@@ -167,20 +167,16 @@ const Mens = () => {
                   //value={categoryfilter}
                 >
                   <Stack direction={"column"}>
-                    <Checkbox value={"tv"} colorScheme="green">
-                      Tv
+                    <Checkbox value={"T-Shirts"} colorScheme="green">
+                      T-Shirts
                     </Checkbox>
-                    <Checkbox value={"camera"} colorScheme="green">
-                      Camera
+                    <Checkbox value={"Kurtas"} colorScheme="green">
+                      Kurtas
                     </Checkbox>
-                    <Checkbox value={"laptop"} colorScheme="green">
-                      Laptop
+                    <Checkbox value={"Shirts"} colorScheme="green">
+                      Shirts
                     </Checkbox>
-
-                    <Checkbox value={"apple"} colorScheme="green">
-                      Iphone
-                    </Checkbox>
-                  </Stack>
+                  </Stack>{" "}
                 </CheckboxGroup>
 
                 <Heading
@@ -257,18 +253,14 @@ const Mens = () => {
             // value={categoryfilter}
           >
             <Stack direction={"column"}>
-              <Checkbox value={"tv"} colorScheme="green">
-                Tv
+              <Checkbox value={"T-Shirts"} colorScheme="green">
+                T-Shirts
               </Checkbox>
-              <Checkbox value={"camera"} colorScheme="green">
-                Camera
+              <Checkbox value={"Kurtas"} colorScheme="green">
+                Kurtas
               </Checkbox>
-              <Checkbox value={"laptop"} colorScheme="green">
-                Laptop
-              </Checkbox>
-
-              <Checkbox value={"apple"} colorScheme="green">
-                Iphone
+              <Checkbox value={"Shirts"} colorScheme="green">
+                Shirts
               </Checkbox>
             </Stack>
           </CheckboxGroup>
@@ -348,50 +340,51 @@ const Mens = () => {
                     alignItems="center"
                     justifyContent="center"
                   >
-                    {/* <Link to={`/electronic/${item.id}`}> */}{" "}
-                    <Box
-                      maxW="sm"
-                      borderWidth="1px"
-                      rounded="lg"
-                      shadow="lg"
-                      position="relative"
-                    >
-                      {data.isNew && (
-                        <Circle
-                          size="10px"
-                          position="absolute"
-                          top={2}
-                          right={2}
-                          bg="red.200"
+                    <Link to={`/mens/${item.id}`}>
+                      {" "}
+                      <Box
+                        maxW="sm"
+                        borderWidth="1px"
+                        rounded="lg"
+                        shadow="lg"
+                        position="relative"
+                      >
+                        {data.isNew && (
+                          <Circle
+                            size="10px"
+                            position="absolute"
+                            top={2}
+                            right={2}
+                            bg="red.200"
+                          />
+                        )}
+
+                        <Image
+                          m="auto"
+                          width={{ base: "150px", md: "150px", lg: "250px" }}
+                          height={{ base: "150px", md: "150px", lg: "220px" }}
+                          src={item.image}
+                          alt={`Picture of ${item.title}`}
+                          roundedTop="lg"
                         />
-                      )}
 
-                      <Image
-                        m="auto"
-                        width={{ base: "150px", md: "150px", lg: "250px" }}
-                        height={{ base: "150px", md: "150px", lg: "220px" }}
-                        src={item.image}
-                        alt={`Picture of ${item.title}`}
-                        roundedTop="lg"
-                      />
-
-                      <Box p="6">
-                        <Box
-                          display="flex"
-                          alignItems="center"
-                          justifyContent={"space-between"}
-                        >
-                          {data.isNew && (
-                            <Badge
-                              rounded="full"
-                              px="2"
-                              fontSize="0.8em"
-                              colorScheme="red"
-                            >
-                              New
-                            </Badge>
-                          )}
-                          {/* <Tooltip
+                        <Box p="6">
+                          <Box
+                            display="flex"
+                            alignItems="center"
+                            justifyContent={"space-between"}
+                          >
+                            {data.isNew && (
+                              <Badge
+                                rounded="full"
+                                px="2"
+                                fontSize="0.8em"
+                                colorScheme="green"
+                              >
+                                New
+                              </Badge>
+                            )}
+                            {/* <Tooltip
           label="Add to cart"
           bg="white"
           placement={'top'}
@@ -401,36 +394,34 @@ const Mens = () => {
             <Icon as={FiShoppingCart} h={7} w={7} alignSelf={'center'} />
           </chakra.a>
         </Tooltip> */}
-                        </Box>
-                        <Flex
-                          mt="1"
-                          justifyContent="space-between"
-                          alignContent="center"
-                        >
-                          <Text fontSize="sm" fontWeight="semibold">
-                            {item.title}
-                          </Text>
-                        </Flex>
-
-                        <Flex
-                          justifyContent="space-between"
-                          alignContent="center"
-                        >
-                          <Rating
-                            rating={item.rating}
-                            numReviews={item.reviews}
-                          />
-                          {"  "}
-                        </Flex>
-                        <Box fontSize="2xl">
-                          <Box as="span" color={"gray.600"} fontSize="2xl">
-                            ₹
+                            <BsWhatsapp color="green" />
                           </Box>
-                          {(item.price * 80).toFixed(2)}
+                          <Flex
+                            mt="1"
+                            justifyContent="space-between"
+                            alignContent="center"
+                          >
+                            <Text fontSize="sm" fontWeight="semibold">
+                              {item.title}
+                            </Text>
+                          </Flex>
+
+                          <Flex
+                            justifyContent="space-between"
+                            alignContent="center"
+                          >
+                            <Rating rating={4} numReviews={item.reviews} />
+                            {"  "}
+                          </Flex>
+                          <Box fontSize="2xl">
+                            <Box as="span" color={"gray.600"} fontSize="2xl">
+                              ₹
+                            </Box>
+                            {(item.price * 80).toFixed(2)}
+                          </Box>
                         </Box>
                       </Box>
-                    </Box>
-                    {/* </Link> */}
+                    </Link>
                   </Flex>
                 </div>
               ))}
