@@ -12,7 +12,7 @@ userRouter.post("/register",formValidator,async(req,res)=>{
     try {
         const checkedData = await userModel.find({email:email})
         if(checkedData.length>0){
-            res.status(400).send({msg:"User already exist, please login"})
+            res.status(400).send({msg:"User already exist, Please login"})
         }else{
             const setuserData = new userModel(userData)
             await setuserData.save()
