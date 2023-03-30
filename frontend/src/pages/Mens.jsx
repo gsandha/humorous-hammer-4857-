@@ -39,10 +39,10 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from "@chakra-ui/react";
-import "./allproduct.css";
+import "../allproduct.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getMensData } from "./Redux/products/action";
+import { getMensData } from "../Redux/products/action";
 const data = {
   isNew: true,
   imageURL:
