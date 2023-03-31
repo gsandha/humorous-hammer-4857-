@@ -17,14 +17,25 @@ import {
   ListItem,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-
+import { useToast } from '@chakra-ui/react'
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { MdLocalShipping } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+const getLocalItems=()=>{
+ 
+  let cart=localStorage.getItem("cart")
+  if(cart){
+    return JSON.parse(localStorage.getItem("cart"))
+  }else{
+  return  []
+  }
+}
 export default function Simple() {
+  const toast = useToast();
   const location = useLocation();
   const [data, setData] = useState({});
+  const [item,setItem]=useState(getLocalItems())
   console.log(data);
   const handleGetData = () => {
     axios
@@ -36,10 +47,26 @@ export default function Simple() {
         console.log(err);
       });
   };
-
+  
+  useEffect(()=>{
+    localStorage.setItem("cart",JSON.stringify(item))
+  
+  },[item])
   useEffect(() => {
     handleGetData();
   }, []);
+  const handleCart=()=>{
+    setItem([...item,data])
+
+    
+    toast({
+      title: 'Item added',
+      
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    });
+  }
   return (
     <Container maxW={"7xl"}>
       <SimpleGrid
@@ -76,7 +103,7 @@ export default function Simple() {
             </Text>
           </Box>
 
-          <Button
+          <Button onClick={handleCart}
             rounded={"none"}
             w={"full"}
             mt={8}
