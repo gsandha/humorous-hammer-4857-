@@ -8,8 +8,8 @@ const formValidator = (req,res,next)=>{
     }
 }
 const formValidatorLogin = (req,res,next)=>{
-    const {email,password} = req.body
-    if(!email || !password){
+    const {email} = req.body
+    if(!email){
         res.status(400).send({msg:"form is invalid please fill all the fields"})
     }else{
         next()
