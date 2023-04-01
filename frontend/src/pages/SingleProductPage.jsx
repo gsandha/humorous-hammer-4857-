@@ -28,7 +28,7 @@ export default function Simple() {
   console.log(data);
   const handleGetData = () => {
     axios
-      .get(`https://shopkaro-backend.onrender.com${location.pathname}`)
+      .get(`http://localhost:9090/products${location.pathname}`)
       .then((res) => {
         setData(res.data);
       })
