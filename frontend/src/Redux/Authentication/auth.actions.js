@@ -14,6 +14,7 @@ export const registerUserData = (data)=>async(dispatch)=>{
 
 export const loginUserData = (data)=>async(dispatch)=>{
     dispatch({type:LOGIN_LOADING})
+    // console.log(data)
     try {
         const msg = await loginUser(data)
         dispatch({type:LOGIN_SUCCESS,payload:msg})
