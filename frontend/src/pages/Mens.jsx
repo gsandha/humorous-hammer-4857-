@@ -110,6 +110,53 @@ const Mens = () => {
   const [placement, setPlacement] = React.useState("right");
   const [grid, setGrid] = useState(true);
   const dispatch = useDispatch();
+  const [categoryfilter, setCategoryFilter] = useState([]);
+  const [startfilter, setStarFilter] = useState([]);
+  const location = useLocation();
+  const [sortValue, setSortValue] = useState("");
+  useEffect(() => {
+    dispatch(getDataElectronic());
+  }, []);
+  useEffect(() => {
+    let params = {};
+    if (categoryfilter.length || sortValue.length || startfilter.length) {
+      params.category = categoryfilter;
+      params.rating = startfilter;
+      params.sort = sortValue;
+    }
+    setSearchParam(params);
+  }, [categoryfilter, startfilter, sortValue]);
+
+  const handleChange = (e) => {
+    setCategoryFilter(e);
+  };
+  const handleChangestar = (e) => {
+    setStarFilter(e);
+  };
+  useEffect(() => {
+    let params = {};
+    if (categoryfilter.length || sortValue.length || startfilter.length) {
+      params.category = categoryfilter;
+      params.rating = startfilter;
+      params.sort = sortValue;
+    }
+    setSearchParam(params);
+  }, [categoryfilter, sortValue, startfilter]);
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const searchValue = searchParams.get("q");
+    if (products?.length === 0 || location) {
+      const getProductParam = {
+        params: {
+          category: searchParams.getAll("category"),
+          rating: searchParams.getAll("rating"),
+          _sort: "price",
+          _order: searchParams.getAll("sort")[0],
+        },
+      };
+      dispatch(getDataElectronic(searchValue, getProductParam));
+    }
+  }, [location.search]);
   useEffect(() => {
     dispatch(getMensData());
   }, []);
