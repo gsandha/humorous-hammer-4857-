@@ -1,27 +1,35 @@
-import axios from 'axios';
+
 import {useState} from 'react';
 import { Input } from '@chakra-ui/react'
 
 const Search = () => {
-    const [prod,setProd]= useState([]);
-    const [title,setTitle]= useState("");
-    
+const [title,setTitle]= useState("");
+let [prod,setProd]=useState([]);
+  
 const handleChange=async(e)=>{
     setTitle(e.target.value);
-    
-}
-// setProd(title)
+  let res=   await fetch(`http://www.omdbapi.com/?s=${title}&apikey=e28acac9`)
+  // let res= await fetch(`https://fakestoreapi.com/products`)
+  let data = await res.json();
+  console.log(data.Search);
+  setProd(data.Search)
+  }
+ 
 
 
   return (
-    <div>
+    <div style={{width:"45%", display:"block"}}>
+
      {/* <h1>This is the thing</h1> */}
-     <Input placeholder='Basic usage' onChange={handleChange}/>
+     <Input  placeholder='Search Products' onChange={handleChange}/>
+     
      {
-        prod.length>0?prod.map((el)=>(
-            <p>{el}</p>
-        )):<h1>Nothing</h1>
+        prod?prod.map((el)=>(
+             <p style={{textAlign:"left"}} key={el.id}>{el.Title}</p>
+        )):<h1></h1>
+
      }
+     
      
      </div>
   )
