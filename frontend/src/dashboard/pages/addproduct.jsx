@@ -23,7 +23,7 @@ const Addproduct = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    fetch('https://shopkaro-backend.onrender.com/mens', {
+    fetch(`${process.env.Api}/${products}`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
