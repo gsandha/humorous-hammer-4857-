@@ -1,138 +1,162 @@
 
-import React,{useState,useEffect} from 'react'
+import { useState, useEffect } from "react";
+import {Tabs, TabList, TabPanels, Tab, TabPanel, Input,Checkbox,Container,Image,Stack} from "@chakra-ui/react";
 import { Route, useNavigate } from 'react-router';
-import { Box,Tabs, TabList, TabPanels, Tab, TabPanel, Text,Flex ,Button,Input,Checkbox,Container,Image,Stack} from "@chakra-ui/react";
-// import { toast } from 'react-toastify';
-// import Navbar from '../../Components/Navbar/Navbar';
-const Cart = () => {
-  const [cartData, setCartData] = useState([]);
-  const [totalItems, setTotalItems] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const navigate=useNavigate()
-  useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    console.log(cart)
-    setCartData(cart);
- 
-    let totalItemsCount = 0;
-    let totalPriceCount = 0;
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 
-    cart.forEach((item) => {
-      totalItemsCount += 1;
-      totalPriceCount += Number(item.price);
-    });
-   
-    setTotalItems(totalItemsCount);
-    setTotalPrice(totalPriceCount);
+const Cart = () => {
+  const [cartItems, setCartItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const toast = useToast();
+
+  useEffect(() => {
+    const items = localStorage.getItem("cart");
+    if (items) {
+      setCartItems(JSON.parse(items));
+    }
   }, []);
-  const carts = JSON.parse(localStorage.getItem("cart")) || [];
-  let sum=0
-  let mrp=0;
-  let price=0
-  for(let i=0;i<carts.length;i++){
-   sum+=carts[i].price
-  mrp+=carts[i].mrp
-  price+=carts[i].price
-  }
-  const discount=mrp-price
+
+  useEffect(() => {
+    let total = 0;
+    cartItems.forEach((item) => {
+      total += item.price * item.quantity;
+    });
+    setTotalPrice(total);
+  }, [cartItems]);
+
   const handleRemoveItem = (index) => {
-    const updatedCart = [...cartData];
-    updatedCart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-    setCartData(updatedCart);
-    setTotalItems(totalItems - 1);
-    setTotalPrice(totalPrice - Number(cartData[index].price));
+    const items = [...cartItems];
+    items.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(items));
+    setCartItems(items);
+    toast({
+      title: "Item removed",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
   };
 
-  const handleEmptyCart = () => {
-    localStorage.removeItem("cart");
-    setCartData([]);
-    setTotalItems(0);
-    setTotalPrice(0);
+  const handleQuantityChange = (index, action) => {
+    const items = [...cartItems];
+    if (action === 'increment') {
+      items[index].quantity++;
+    } else if (action === 'decrement') {
+      if (items[index].quantity > 1) {
+        items[index].quantity--;
+      } else {
+        handleRemoveItem(index);
+      }
+    }
+    localStorage.setItem("cart", JSON.stringify(items));
+    setCartItems(items);
   }
 
+  const handleClearCart = () => {
+    localStorage.removeItem("cart");
+    setCartItems([]);
+    setTotalPrice(0);
+    toast({
+      title: "Cart cleared",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
+  };
   return (
-  <>
+      <>
  
     <div style={{backgroundColor:"#f2f4f5",height:"100vh"
   } }>
-     <Flex>
-      <Box w="70%">
-        
-        <Box bg="rgb(255, 255, 255)"borderRadius="lg" p="4"  textAlign="left" ml="100px" height="100vh">
-             <Container maxW="container.lg">
-         <Text fontSize="2xl" mb="5" fontWeight="bold">
-           Cart Page({totalItems} items) 
-         </Text>
-
-         {cartData.map((item, index) => (
-  <Flex key={index} alignItems="center" mb="3">
-      <Box flex="1" mt="3">
-    <Image src={item.image} alt={item.name} boxSize="150px" objectFit="cover" />
-  </Box>
-    <Box flex="1">
-      <Text fontWeight="bold">Name:</Text>
-      <Text fontSize="12px">{item.name}</Text>
-    </Box>
-
-    <Box flex="1" ml="50px" mt="-20px">
-      <Text fontWeight="bold" >Description:</Text>
-      <Text>{item.description}</Text>
-    </Box>
-
-    <Box flex="1" mt="-20px">
-      <Text fontWeight="bold">Price:</Text>
-      <Text>{item.price}</Text>
-    </Box>
-
-    <Box ml="50px" mt="-20px">
-      <Button size="xs" colorScheme="red" onClick={() => handleRemoveItem(index)}>Remove</Button>
-    </Box>
-   
-  </Flex>
-))}
+    <Flex>
+     <Box w="70%">  
+    <Box bg="rgb(255, 255, 255)"borderRadius="lg" p="4"  textAlign="left" ml="100px" height="100vh">
+    //           
+                <Text fontSize="2xl" mb="5" fontWeight="bold">
+            Cart Page
+          </Text>
+      {cartItems.length === 0 ? (
+        <Text>Your cart is empty.</Text>
+      ) : (
+        <>
 
 
-      
-          <Button onClick={handleEmptyCart} backgroundColor="black" color="white" width="50%">Empty Cart</Button>
+
+          {cartItems.map((item, index) => (
+            <Flex key={index} alignItems="center" justifyContent="space-between" mb="3">
+               <Box flex="1" mt="3">
+     <Image src={item.image} alt={item.name} boxSize="150px" objectFit="cover" />
+   </Box>     
+             
+        <Box flex="1">
+       <Text fontWeight="bold">Name:</Text>
+       <Text fontSize="12px">{item.name}</Text>
+     </Box>
+          <Box flex="1" ml="50px" mt="-20px">
+       <Text fontWeight="bold" >Description:</Text>
+       <Text>{item.description}</Text>
+     </Box>
+          <Box flex="1" mt="-20px">
+       <Text fontWeight="bold">Price:</Text>
+       <Text>{item.price}</Text>
+     </Box>
      
-      </Container>
-         
-          <Box p="4">
+              <Flex alignItems="center">
+                <Button size="sm" mr="2" onClick={() => handleQuantityChange(index, 'decrement')}>
+                  -
+                </Button>
+                <Text mr="2">{item.quantity}</Text>
+                <Button size="sm" onClick={() => handleQuantityChange(index, 'increment')}>
+                  +
+                </Button>
+                <Button size="sm" ml="4" colorScheme="red" onClick={() => handleRemoveItem(index)}>
+                  Remove
+                </Button>
+              </Flex>
+            </Flex>
+          ))}
+          <Flex alignItems="center" justifyContent="space-between">
+            <Text fontWeight="semibold">Total:</Text>
+            <Text>${totalPrice.toFixed(2)}</Text>
+          </Flex>
+          <Button mt="4" onClick={handleClearCart}>
+            Clear Cart
+          </Button>
+
+          
+        </>
+      )}
       
     </Box>
-        </Box>
-      </Box>
-      {/* SUMMARY BOX */}
-      <Box w="30%">
-        <Box bg="rgb(255, 255, 255)" h="40vh" borderRadius="lg" p="4" color="#494953" textAlign="left" ml="20px">
-        <strong> Order Summary</strong>  
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>  <Text pt="30px">Total MRP :  </Text> <Text pt="30px">{totalPrice}₹</Text></div> 
-         
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>  <Text pt="10px">Total Discounts</Text> <Text pt="10px" color="green">{discount}₹</Text></div> 
+    </Box> 
+    <Box w="30%">
+        <Box bg="rgb(255, 255, 255)" h="40vh" borderRadius="lg" p="4" color="#494953" textAlign="left" ml="20px">  
+                 <strong> Order Summary</strong>  
+         <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>  <Text pt="30px">Total MRP :  </Text> <Text pt="30px">{totalPrice}₹</Text></div> 
+            
+         <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>  <Text pt="10px">Total Discounts</Text> <Text pt="10px" color="green">₹0</Text></div> 
+                  <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>     <Text pt="10px">Shipping Charges</Text> <Text pt="10px">{Cart.length===0?0:99}₹</Text></div> 
+                  <hr/>
 
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>     <Text pt="10px">Shipping Charges</Text> <Text pt="10px">{carts.length===0?0:99}₹</Text></div> 
-         
-      {console.log(carts.length)}
-          <hr/>
-       
-          <Text fontWeight="bold">Payable Amount {carts.length===0?0:sum-discount+99}₹ </Text>
-        <Text color="green" fontSize="13px">
-        You will Save {discount} & Earn ₹51 Vigor Cash on this order
-            </Text>   
+        <Text fontWeight="bold">Payable Amount{totalPrice}₹ </Text>
+         <Text color="green" fontSize="13px">
+         You will Save 0 & Earn ₹51 Vigor Cash on this order
+             </Text>   
         </Box>
-            <Button backgroundColor="#00B5B7" color="white" width="95%" ml="20px" onClick={()=>{
-            navigate("/payments")     } }>
-              Proceed to Pay {carts.length===0?0:sum-discount+99}₹
-        
-             </Button>
-      </Box>
+    </Box>
     </Flex>
-</div>
-  </>
+   </div>
+   </>
 
    
-  )
-}
+   )
+          }
 
-export default Cart
+          export default Cart
