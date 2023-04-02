@@ -11,6 +11,7 @@ export default function Home() {
     router.push(`/dashboard`);
   }
   return (
+    
     <>
       <Head>
         <title>Create Next App</title>
