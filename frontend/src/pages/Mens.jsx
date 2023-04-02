@@ -155,12 +155,12 @@ const Mens = () => {
 
   console.log(products);
   return (
-    <div style={{ width: "95%", margin: "auto" }}>
+    <Box style={{ width: "95%", margin: "auto" }}>
       {/* ------BreadCrumb------ */}
       <Breadcrumb
         spacing="5px"
         separator={<AiOutlineRight color="gray" />}
-        m={"5px"}
+        marginTop={"100px"}
       >
         <BreadcrumbItem>
           <Link to={"/"}>Cartify</Link>
@@ -472,7 +472,7 @@ const Mens = () => {
           )}
         </div>
       </div>
-    </div>
+    </Box>
   );
 };
 
