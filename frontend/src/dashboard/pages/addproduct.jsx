@@ -23,7 +23,7 @@ const Addproduct = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    fetch(`${process.env.Api}/${products}`, {
+    fetch(`http://localhost:9090/products/`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'

@@ -6,10 +6,25 @@ import { useRouter } from 'next/router';
 const Productlist = ({c}) => {
 
   const router = useRouter();
-  const Dlt = (id,item)=>{
-    axios.post(`${process.env.Api}/deleted`,item)
-    axios.delete(`${process.env.Api}/products/${id}`)
-    router.push("/products");
+  const Dlt = async(id,item)=>{
+    // axios.post(`http://localhost:9090/deleted`,item)
+    // axios.delete(`http://localhost:9090/products/${id}`)
+      await fetch(`http://localhost:9090/products/${id}`, {
+        method: 'DELETE',
+      })
+        .then(response => {
+          if (response.ok) {
+            console.log('Product deleted successfully');
+          } else {
+            throw new Error('Failed to delete product');
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    
+    // router.push("/products");
+  router.reload()
   }
   return (
     <>
@@ -30,7 +45,7 @@ const Productlist = ({c}) => {
     <tbody className={styles.scrl}>
 
        {c.map((item, index)=>{
-      let id = item.id;
+      let id = item._id;
       return (
           <tr key={index}>
             <td style={{paddingLeft:"20px"}}>{+index+1}</td>
@@ -49,7 +64,7 @@ const Productlist = ({c}) => {
 export default Productlist
 
 export async function getStaticProps(context) {
-  const response = await axios.get(`${process.env.Api}/products`);
+  const response = await axios.get(`http://localhost:9090/products`);
   const data = response.data;
   let c = data.slice(0,13)
   return {

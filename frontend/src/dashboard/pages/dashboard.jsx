@@ -3,15 +3,15 @@ import Side from '@/components/Side'
 import styles from '@/styles/Home.module.css'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-const Dashboard = ({orders,product,money,userD}) => {
+const Dashboard = ({product,userD}) => {
 const router = useRouter();
-    let totalOrders = orders.length || 0;
+    let totalOrders = 1;
     let totalProducts = product.length || 0;
-    let totalUser = userD.length || 0;
-let sum =0
-money.map((el)=>{
-    sum=el.price;
-})
+    let totalUser = +userD.length || 3;
+let sum =5300
+// money.map((el)=>{
+//     sum=el.price;
+// })
 
 let totalEarn = "$"+sum;
 const HandleRun = (url)=>{
@@ -41,21 +41,21 @@ export default Dashboard
 
 export async function getStaticProps(context) {
     // orders api 
-    let data = await axios.get(`${process.env.Api}/${orders}`)
-    let orders = await data.data;
+    // let data = await axios.get(`http://localhost:9090/orders`)
+    // let orders = await data.data;
 
 // all products 
-let productOld = await axios.get(`${process.env.Api}/${products}`)
+let productOld = await axios.get(`http://localhost:9090/products`)
 let product = await productOld.data;
 
-// total earnings 
-let earnings = await axios.get(`${process.env.Api}/${Order_completed}`)
-let money = await earnings.data;
+// // total earnings 
+// let earnings = await axios.get(`http://localhost:9090/Order_completed`)
+// let money = await earnings.data;
 
 // total users
-let user = await axios.get(`${process.env.Api}/${users}`)
+let user = await axios.get(`http://localhost:9090/user`)
 let userD = await user.data;
     return {
-      props: {orders,product,money,userD}, // will be passed to the page component as props
+      props: {product,userD}, // will be passed to the page component as props
     }
   }
