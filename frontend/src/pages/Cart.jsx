@@ -14,6 +14,7 @@ import {
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const navigate=useNavigate()
   const toast = useToast();
 
   useEffect(() => {
@@ -78,7 +79,6 @@ const Cart = () => {
     <Flex>
      <Box w="70%">  
     <Box bg="rgb(255, 255, 255)"borderRadius="lg" p="4"  textAlign="left" ml="100px" height="100vh">
-    //           
                 <Text fontSize="2xl" mb="5" fontWeight="bold">
             Cart Page
           </Text>
@@ -150,6 +150,11 @@ const Cart = () => {
          You will Save 0 & Earn ₹51 Vigor Cash on this order
              </Text>   
         </Box>
+        <Button backgroundColor="#00B5B7" color="white" width="95%" ml="20px" onClick={()=>{toast("Redirecting to payments page!!");
+            navigate("/payments")     } }>
+              Proceed to Pay {cartItems.length===0?0:totalPrice+99}₹
+        
+             </Button>
     </Box>
     </Flex>
    </div>

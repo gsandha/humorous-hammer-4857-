@@ -5,15 +5,22 @@ import Payments from "../pages/Payments";
 import Login from "../pages/Login";
 import Register from "../pages/Signup";
 import { OtpPage } from "../pages/otp";
+import Home from "../pages/Home";
+import Simple from "../pages/SingleProductPage";
+import Mens from "../pages/Mens";
+import Abc from "../pages/Abc";
 const AllRoutes=()=>{
     return (
         <Routes>
-            <Route path="/register" elements={<Register/>}/>
-            <Route path="/login" elements={<Login/>}/>
-            <Route path="/cart" elements={<Cart/>}/>
-            <Route path="/payments" elements={<Payments/>}/>
-            <Route path="/login/otp" elements={<OtpPage/>}/>
-            
+            <Route path="/" element={<Home/>}/>
+            <Route path="/register" element={<Register/>}/>
+            <Route path="/login" element={<Login/>}/>
+            <Route path="/cart" element={<Cart/>}/>
+            <Route path="/payments" element={<Payments/>}/>
+            <Route path="/signin/otp" element={<OtpPage/>}/>
+            <Route path="/mens" element={<Mens/>}/>
+            <Route path="/simple" element={<Simple/>}/>
+            <Route path="/abc" element={<Abc/>}/>
         </Routes>
     )
 }
