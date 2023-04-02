@@ -4,7 +4,7 @@ import { Box, Tabs, TabList, TabPanels, Tab, TabPanel, Text,Flex ,Button,Input,C
 import { useNavigate } from 'react-router-dom';
 import {toast} from "react-toastify"
 // import Navbar from '../../Components/Navbar/Navbar';
-const Payments = () => {
+export const Payments = () => {
     const [upiId, setUpiId] = useState("");
     const navigate=useNavigate()
     const handleButtonClick = (text) => {
@@ -24,7 +24,6 @@ const Payments = () => {
     
   return (
   <>
-  {/* <Navbar/> */}
     <div style={{backgroundColor:"#f2f4f5",height:"100vh"} }>
      <Flex>
       <Box w="62%">
@@ -133,8 +132,5 @@ const Payments = () => {
     </Flex>
 </div>
 </>
-   
   )
 }
-
-export default Payments

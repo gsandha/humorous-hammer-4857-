@@ -8,6 +8,7 @@ import Register from "../pages/Signup";
 import Login from "../pages/Login";
 import { OtpPage } from "../pages/otp";
 import { Admin } from "../pages/admin";
+import {Payments} from "../pages/Payments"
 import { Privateroute } from "./Privateroute";
 const AllRoutes=()=>{
     return (
@@ -17,10 +18,11 @@ const AllRoutes=()=>{
       <Route path="/mens" element={<Mens />} />
       <Route path="/mens/:id" element={<Simple />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/payments" element={<Payments />} />
       <Route path="/login" element={<Login />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/login/otp" element={<OtpPage />} />
-    </Routes>
-    )
+    </Routes>)
 }
+
 export default AllRoutes
