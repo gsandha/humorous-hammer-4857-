@@ -9,7 +9,7 @@ import { registerUserData } from '../Redux/Authentication/auth.actions';
 const Register = () => {
   const [passhow,setPassShow] = useState(false);
   const [inputdata,setInputdata] = useState({});
-  const {msg,isAuth,isError,isLoading} = useSelector((store)=>store.authManager)
+  const {msg} = useSelector((store)=>store.authManager)
   console.log(msg)
   const navigate = useNavigate();
   // console.log(inputdata)
@@ -50,8 +50,10 @@ const Register = () => {
       dispatch(registerUserData(inputdata))
       if(msg==="registerd successfully"){
         toast.success("you are now the member of cartify")
+        navigate("/login")
       }else if(msg==="User already exist, please login"){
         toast.error("you are already the member of cartify Please Login!")
+        navigate("/login")
       }else{
         toast.error("there is an error while registering the data Please Signup later!")
       }

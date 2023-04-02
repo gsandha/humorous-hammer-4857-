@@ -1,28 +1,50 @@
 import React from "react";
 import PinVerifyInput from "../components/pin";
 import { useLocation, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUserData } from "../Redux/Authentication/auth.actions";
 import "../Styles/otp.css";
-import { Spinner } from "@chakra-ui/react";
+import { Spinner, useToast } from "@chakra-ui/react";
 export const OtpPage = () => {
   const [pin, setPin] = React.useState("");
   const location = useLocation();
   console.log(location)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { msg, token, isLoading } = useSelector((store) => store.authManager);
-  console.log(isLoading)
+  const {  token, isLoading } = useSelector((store) => store.authManager);
+  const userData = useSelector((store) => store.authManager.data)
+  console.log(userData)
+  const toast = useToast()
   const LoginUser = async (e) => {
     e.preventDefault();
 
     if (pin === "") {
-      toast.error("Enter Your pin");
+      toast({
+        title: 'OTP error.',
+        description: "Please enter your pin.",
+        status: 'error',
+        duration: 3000,
+        position:"top",
+        isClosable: true,
+      })
     } else if (!/[^a-zA-Z]/.test(pin)) {
-      toast.error("Enter Valid pin");
+      toast({
+        title: 'OTP error.',
+        description: "Enter Valid pin.",
+        status: 'error',
+        duration: 3000,
+        position:"top",
+        isClosable: true,
+      })
     } else if (pin.length < 4) {
-      toast.error("pin Length minimum 6 digit");
+      toast({
+        title: 'OTP error.',
+        description: "pin Length minimum 4 digit.",
+        status: 'error',
+        duration: 3000,
+        position:"top",
+        isClosable: true,
+      })
     } else {
       const data = {
         otp: pin,
@@ -31,11 +53,27 @@ export const OtpPage = () => {
       dispatch(loginUserData(data));
       if (token!=="") {
         localStorage.setItem("userToken", token);
-        toast.success(`login successfully`);
+        toast({
+          title: 'OTP Message.',
+          description: `Welcome back ${userData.name}.`,
+          status: 'success',
+          duration: 3000,
+          position:"top",
+          isClosable: true,
+        })
+        
         navigate("/");
-      } else {
-        toast.error("login failed try again");
-      }
+      } 
+      // else if(token){
+      //   toast({
+      //     title: 'OTP error.',
+      //     description: "login failed try again",
+      //     status: 'error',
+      //     duration: 3000,
+      //     position:"top",
+      //     isClosable: true,
+      //   })
+      // }
     }
   };
 

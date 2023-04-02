@@ -30,7 +30,6 @@ import { HiShoppingCart, HiSearch } from "react-icons/hi";
 // import logo from "../Assets/logo.png";
 import {Link}  from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
@@ -39,8 +38,6 @@ export default function Navbar() {
   const handleLogout = ()=>{
     localStorage.removeItem("userToken")
   }
-  useEffect(()=>{
-  },[token])
   return (
     <Box position="fixed" width="100%" top={0} zIndex={1}>
       <Flex
