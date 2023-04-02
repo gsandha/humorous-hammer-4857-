@@ -15,13 +15,20 @@ import {
   VisuallyHidden,
   List,
   ListItem,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { MdLocalShipping } from "react-icons/md";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
+import { AiOutlineRight, AiOutlineArrowRight } from "react-icons/ai";
+
 const getLocalItems = () => {
   let cart = localStorage.getItem("cart");
   if (cart) {
@@ -66,6 +73,21 @@ export default function Simple() {
   };
   return (
     <Container maxW={"7xl"}>
+      <Breadcrumb
+        spacing="5px"
+        separator={<AiOutlineRight color="gray" />}
+        marginTop={"100px"}
+      >
+        <BreadcrumbItem>
+          <Link to={"/"}>Cartify</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+          <Link to={"/mens"}>Mens</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem isCurrentPage>
+          <b> {data.name} </b>
+        </BreadcrumbItem>
+      </Breadcrumb>
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 8, md: 10 }}
@@ -139,21 +161,10 @@ export default function Simple() {
                 textTransform={"uppercase"}
                 mb={"4"}
               >
-                Features
+                Description
               </Text>
 
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-                <List spacing={2}>
-                  <ListItem>Chronograph</ListItem>
-                  <ListItem>Master Chronometer Certified</ListItem>{" "}
-                  <ListItem>Tachymeter</ListItem>
-                </List>
-                <List spacing={2}>
-                  <ListItem>Anti‑magnetic</ListItem>
-                  <ListItem>Chronometer</ListItem>
-                  <ListItem>Small seconds</ListItem>
-                </List>
-              </SimpleGrid>
+              {data.description}
             </Box>
             <Box>
               <Text
@@ -169,46 +180,33 @@ export default function Simple() {
               <List spacing={2}>
                 <ListItem>
                   <Text as={"span"} fontWeight={"bold"}>
-                    Between lugs:
+                    Colour:
                   </Text>{" "}
-                  20 mm
+                  {data.color}
                 </ListItem>
                 <ListItem>
                   <Text as={"span"} fontWeight={"bold"}>
-                    Bracelet:
+                    Brand:
                   </Text>{" "}
-                  leather strap
+                  {data.brand}
                 </ListItem>
                 <ListItem>
                   <Text as={"span"} fontWeight={"bold"}>
-                    Case:
+                    Size:
                   </Text>{" "}
-                  Steel
+                  {data.size}
                 </ListItem>
                 <ListItem>
                   <Text as={"span"} fontWeight={"bold"}>
-                    Case diameter:
+                    Discount:
                   </Text>{" "}
-                  42 mm
+                  {data.discount}
                 </ListItem>
                 <ListItem>
                   <Text as={"span"} fontWeight={"bold"}>
-                    Dial color:
+                    Material:
                   </Text>{" "}
-                  Black
-                </ListItem>
-                <ListItem>
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Crystal:
-                  </Text>{" "}
-                  Domed, scratch‑resistant sapphire crystal with anti‑reflective
-                  treatment inside
-                </ListItem>
-                <ListItem>
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Water resistance:
-                  </Text>{" "}
-                  5 bar (50 metres / 167 feet){" "}
+                  {data.material}
                 </ListItem>
               </List>
             </Box>

@@ -30,7 +30,7 @@ const Register = () => {
     const {fname,email,password,gender,age,city} = inputdata;
 
     if(fname === ""){
-        console.log("ho")
+        // console.log("ho")
         toast.error('Enter your name');
     }else if(email === ""){
       toast.error("Enter Your Email")
