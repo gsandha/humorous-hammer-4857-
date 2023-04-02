@@ -8,7 +8,9 @@ function App() {
   return (
     <div className="App">
       <Navbar />
+      <div style={{marginTop:"80px"}}>
       <Allroutes />
+      </div>
     </div>
   );
 }

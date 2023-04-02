@@ -127,7 +127,7 @@ export default function Navbar() {
               </Stack>
             </MenuButton>
             <MenuList>
-              <RLink to="/signin">
+              <RLink to="/login">
                 <MenuItem>Sign In</MenuItem>
               </RLink>
               <RLink to="/admin">
