@@ -7,7 +7,7 @@ const router = require("./Routes/product.routes");
 const app = express();
 app.use(express.json());
 const port = process.env.port || 9090;
-
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use("/user", userRouter);
 app.use("/products", router);

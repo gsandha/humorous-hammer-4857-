@@ -5,12 +5,12 @@ export const getMensData = (searchValue, getProductParam) => (dispatch) => {
   if (searchValue == null) {
     searchValue = "";
   }
-
-  console.log(getProductParam);
+  //  https://shopkaro-backend.onrender.com/mens
+  // console.log("getparam", getProductParam.params.category);
 
   dispatch({ type: types.PRODUCT_LOADING });
   axios
-    .get(`http://localhost:9090/products`)
+    .get(`https://shopkaro-backend.onrender.com/mens`, getProductParam)
     .then((res) => dispatch({ type: types.PRODUCT_SUCCESS, payload: res.data }))
     .catch((e) => dispatch({ type: types.PRODUCT_ERROR, payload: e }));
 };

@@ -29,7 +29,8 @@ router.get("/", async (req, res) => {
       .skip((page - 1) * limit)
       .limit(limit)
       .sort(x);
-    res.status(200).json(products);
+    res.setHeader("content-type", "application/x-www-form-urlencoded");
+    res.status(200).send(products);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
