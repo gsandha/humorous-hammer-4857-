@@ -7,7 +7,7 @@ const Productlist = ({data}) => {
 
   const router = useRouter();
   const Dlt = (id)=>{
-    axios.delete(`${process.env.Api}/users/${id}`)
+    axios.delete(`http://localhost:9090/user/${id}`)
     router.push('/users')
   }
   return (<>
@@ -29,7 +29,7 @@ const Productlist = ({data}) => {
           <tr key={index}>
             <td style={{paddingLeft:"20px"}}>{item.name}</td>
             <td>{item.email}</td>
-            <td className={styles.dlt} onClick={()=>{Dlt(id)}}>Delete</td>
+            {/* <td className={styles.dlt} onClick={()=>{Dlt(id)}}>Delete</td> */}
           </tr>
       )
     })}
@@ -41,8 +41,8 @@ const Productlist = ({data}) => {
 export default Productlist
 
 export async function getStaticProps(context) {
-  const response = await axios.get(`${process.env.Api}/users`);
-  const c = response.data;
+  const response = await axios.get(`http://localhost:9090/user`);
+  const c = response.data.data;
   let data = c.slice(0,13)
   return {
     props: {data}, 

@@ -55,12 +55,13 @@ router.post("/", async (req, res) => {
 // DELETE a product by ID
 router.delete("/:id", getProduct, async (req, res) => {
   try {
-    await res.product.remove();
+    await Product.findByIdAndDelete(req.params.id);
     res.json({ message: "Product deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
+
 
 // Middleware to get a product by ID
 async function getProduct(req, res, next) {
