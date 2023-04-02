@@ -7,10 +7,9 @@ const Productlist = ({c}) => {
 
   const router = useRouter();
   const Dlt = (id,item)=>{
-    axios.post(`https://shopkaro-backend.onrender.com/deleted`,item)
-    axios.delete(`https://shopkaro-backend.onrender.com/mens/${id}`)
+    axios.post(`${process.env.Api}/deleted`,item)
+    axios.delete(`${process.env.Api}/products/${id}`)
     router.push("/products");
-    router.push('/products')
   }
   return (
     <>
@@ -50,7 +49,7 @@ const Productlist = ({c}) => {
 export default Productlist
 
 export async function getStaticProps(context) {
-  const response = await axios.get('https://shopkaro-backend.onrender.com/mens');
+  const response = await axios.get(`${process.env.Api}/products`);
   const data = response.data;
   let c = data.slice(0,13)
   return {

@@ -4,9 +4,33 @@ const Product = require("../Model/products.model");
 
 // GET all products
 router.get("/", async (req, res) => {
+  let { page, limit, sort } = req.query;
+  if (page < 1) {
+    page = 1;
+  }
+  if (!limit) {
+    limit = 20;
+  }
+  let x = {};
+  if (sort == "desc") {
+    x = { price: -1 };
+  } else if (sort == "asc") {
+    x = { price: 1 };
+  } else {
+    x = {};
+  }
   try {
-    const products = await Product.find();
-    res.status(200).json(products);
+    let search = req.query.q || "";
+    const queryObj = { ...req.query };
+    const exclude = ["page", "limit", "sort"];
+    exclude.forEach((el) => delete queryObj[el]);
+
+    const products = await Product.find(queryObj)
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .sort(x);
+    res.setHeader("content-type", "application/x-www-form-urlencoded");
+    res.status(200).send(products);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
