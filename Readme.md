@@ -4,6 +4,9 @@ port=9090
 
 API - https://alert-seal-bandanna.cyclic.app/
 
+---------------- Admin Login ----------
+email - admin@cartify.com
+pass - admin@123
 
 "orders": [
     {
