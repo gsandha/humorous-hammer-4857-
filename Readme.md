@@ -5,6 +5,7 @@ port=9090
 API - https://alert-seal-bandanna.cyclic.app/
 
 ---------------- Admin Login ----------
+Url - https://limeroad-admin.vercel.app/dashboard <br>
 email - admin@cartify.com
 pass - admin@123
 
