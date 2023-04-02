@@ -18,6 +18,18 @@ const tarnsporter = nodemailer.createTransport({
 })
 
 
+// to get all the users
+
+userRouter.get("/",async(req,res)=>{
+    try {
+        const getallUserData = await userModel.find()
+        res.status(200).send({msg:"data of all the users",data:getallUserData})
+    } catch (error) {
+        res.status(400).send({msg:"there is an problem while fetchng the data of all the users",err:error})
+    }
+})
+
+
 userRouter.post("/register",formValidator,async(req,res)=>{
     const {email,password} = req.body
     const hashedPass = bcrypt.hashSync(password,10)

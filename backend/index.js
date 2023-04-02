@@ -8,7 +8,7 @@ app.use(express.json())
 const port=process.env.port|| 9090
 
 app.use(cors())
-app.use("/user",userRouter)
+app.use("/users",userRouter)
 app.get("/",(req,res)=>{
     res.send("Welcome to homepage")
 })
