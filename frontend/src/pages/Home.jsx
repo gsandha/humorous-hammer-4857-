@@ -4,7 +4,7 @@ import Main from "../homeComponents/Main";
 import MainCarousel from "../homeComponents/MainCarousel";
 import TopProfile from "../homeComponents/TopProfile";
 
-export default function Homepage() {
+function Home() {
   return (
     <>
       <Box
@@ -21,3 +21,4 @@ export default function Homepage() {
     </>
   );
 }
+export default Home;
