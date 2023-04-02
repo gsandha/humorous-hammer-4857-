@@ -5,7 +5,7 @@ import Login from "../pages/Login";
 import Mens from "../pages/Mens";
 import Register from "../pages/Signup";
 import Simple from "../pages/SingleProductPage";
-import { OtpPage } from "./otp";
+import { OtpPage } from "../pages/otp";
 const Allroutes = () => {
   return (
     <Routes>

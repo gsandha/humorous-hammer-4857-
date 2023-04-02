@@ -18,6 +18,18 @@ const tarnsporter = nodemailer.createTransport({
 })
 
 
+// to get all the users
+
+userRouter.get("/",async(req,res)=>{
+    try {
+        const getallUserData = await userModel.find()
+        res.status(200).send({msg:"data of all the users",data:getallUserData})
+    } catch (error) {
+        res.status(400).send({msg:"there is an problem while fetchng the data of all the users",err:error})
+    }
+})
+
+
 userRouter.post("/register",formValidator,async(req,res)=>{
     const {email,password} = req.body
     const hashedPass = bcrypt.hashSync(password,10)
@@ -26,7 +38,6 @@ userRouter.post("/register",formValidator,async(req,res)=>{
         const checkedData = await userModel.find({email:email})
         if(checkedData.length>0){
           res.status(200).send({msg:"User already exist, please login"})
-            res.status(400).send({msg:"User already exist, Please login"})
         }else{
             const setuserData = new userModel(userData)
             await setuserData.save()
@@ -38,20 +49,25 @@ userRouter.post("/register",formValidator,async(req,res)=>{
 })
 userRouter.post("/login",formValidatorLogin,async(req,res)=>{
     const {email,otp} = req.body;
+    // console.log("hi")
+    console.log(req.body)
     if(!otp || !email){
+        console.log("hi")
         res.status(400).json({ error: "Please Enter Your OTP and email" })
+    }
     try {
-        const userData = await userModel.find({email})
-        const OTP = userData[0].otp
+        const userData = await userotp.findOne({email:email})
+        const user_id = await userModel.findOne({email:email})
+        const OTP = userData.otp
         if(OTP===otp){
-            res.status(200).send({msg:"login successfully",token:jwt.sign({userId:userData[0]._id},"user")})
+            res.status(200).send({msg:"login successfully",token:jwt.sign({userId:user_id._id},"user"),data:user_id})
         }else{
             res.status(400).json({error:"Invalid Otp"})
         }
     } catch (error) {
+        console.log("hi")
         res.status(400).send({msg:"Login error"})
     }
-}
 })
 
 
@@ -67,12 +83,10 @@ userRouter.post("/verify",formValidatorLogin,async(req,res)=>{
 
 
             if (existEmail) {
-                const updateData = await userotp.findByIdAndUpdate({ _id: existEmail._id }, {
+                await userotp.findByIdAndUpdate({ _id: existEmail._id }, {
                     otp: OTP
                 }, { new: true }
                 );
-                await updateData.save();
-
                 const mailOptions = {
                     from: process.env.EMAIL,
                     to: email,

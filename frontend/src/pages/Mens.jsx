@@ -13,6 +13,7 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
 import {
   Flex,
   Circle,
@@ -40,7 +41,7 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 import "../allproduct.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMensData } from "../Redux/products/action";
 
@@ -108,11 +109,50 @@ const Mens = () => {
   const { products, loading } = useSelector((store) => store.product);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [placement, setPlacement] = React.useState("right");
+  const [searchParams, setSearchParam] = useSearchParams();
   const [grid, setGrid] = useState(true);
   const dispatch = useDispatch();
+
+  const location = useLocation();
+
+  const initialValues = searchParams.getAll("filter");
+  const initialValues1 = searchParams.getAll("sort");
+  console.log(initialValues, initialValues1);
+  const [categoryfilter, setCategoryFilter] = useState(initialValues || []);
+  const [starfilter, setStarFilter] = useState(initialValues1 || []);
+  const [sortValue, setSortValue] = useState("");
   useEffect(() => {
-    dispatch(getMensData());
-  }, []);
+    let params = {};
+    if (categoryfilter.length || sortValue.length || starfilter.length) {
+      params.category = categoryfilter;
+      params.rating = starfilter;
+      params.sort = sortValue;
+    }
+    setSearchParam(params);
+  }, [categoryfilter, starfilter, sortValue]);
+
+  const handleChange = (e) => {
+    setCategoryFilter(e);
+  };
+  const handleChangestar = (e) => {
+    setStarFilter(e);
+  };
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const searchValue = searchParams.get("q");
+    if (products?.length === 0 || location) {
+      const getProductParam = {
+        params: {
+          category: searchParams.getAll("category"),
+          rating: searchParams.getAll("rating"),
+          _sort: "price",
+          _order: searchParams.getAll("sort")[0],
+        },
+      };
+      dispatch(getMensData(searchValue, getProductParam));
+    }
+  }, [location.search]);
+
   console.log(products);
   return (
     <div style={{ width: "95%", margin: "auto" }}>
@@ -163,14 +203,14 @@ const Mens = () => {
 
                 <CheckboxGroup
                   colorScheme={"green"}
-                  //onChange={handleChange}
-                  //value={categoryfilter}
+                  onChange={handleChange}
+                  value={categoryfilter}
                 >
                   <Stack direction={"column"}>
                     <Checkbox value={"T-Shirts"} colorScheme="green">
                       T-Shirts
                     </Checkbox>
-                    <Checkbox value={"Kurtas"} colorScheme="green">
+                    <Checkbox value={"Kurta"} colorScheme="green">
                       Kurtas
                     </Checkbox>
                     <Checkbox value={"Shirts"} colorScheme="green">
@@ -190,8 +230,8 @@ const Mens = () => {
 
                 <CheckboxGroup
                   colorScheme={"green"}
-                  //onChange={handleChangestar}
-                  //value={startfilter}
+                  onChange={handleChangestar}
+                  value={starfilter}
                 >
                   <Stack direction={"column"}>
                     <Checkbox value={"5"} colorScheme="green">
@@ -219,8 +259,8 @@ const Mens = () => {
           <Select
             placeholder="Sort By"
             width={"150px"}
-            //   onChange={(e) => setSortValue(e.target.value)}
-            //  value={sortValue}
+            onChange={(e) => setSortValue(e.target.value)}
+            value={sortValue}
           >
             <option value="asc">Low to high</option>
             <option value="desc">High to low</option>
@@ -249,8 +289,8 @@ const Mens = () => {
 
           <CheckboxGroup
             colorScheme={"green"}
-            // onChange={handleChange}
-            // value={categoryfilter}
+            onChange={handleChange}
+            value={categoryfilter}
           >
             <Stack direction={"column"}>
               <Checkbox value={"T-Shirts"} colorScheme="green">
@@ -276,8 +316,8 @@ const Mens = () => {
 
           <CheckboxGroup
             colorScheme={"green"}
-            // onChange={handleChangestar}
-            // value={startfilter}
+            onChange={handleChangestar}
+            value={starfilter}
           >
             <Stack direction={"column"}>
               <Checkbox value={"5"} colorScheme="green">
@@ -402,7 +442,7 @@ const Mens = () => {
                             alignContent="center"
                           >
                             <Text fontSize="sm" fontWeight="semibold">
-                              {item.title}
+                              {item.name}
                             </Text>
                           </Flex>
 
@@ -410,14 +450,17 @@ const Mens = () => {
                             justifyContent="space-between"
                             alignContent="center"
                           >
-                            <Rating rating={4} numReviews={item.reviews} />
+                            <Rating
+                              rating={item.rating}
+                              numReviews={item.reviews}
+                            />
                             {"  "}
                           </Flex>
                           <Box fontSize="2xl">
                             <Box as="span" color={"gray.600"} fontSize="2xl">
                               ₹
                             </Box>
-                            {(item.price * 80).toFixed(2)}
+                            {item.price.toFixed(2)}
                           </Box>
                         </Box>
                       </Box>

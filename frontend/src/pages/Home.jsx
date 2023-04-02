@@ -1,7 +1,24 @@
-import React from "react";
+import { Box, Stack } from "@chakra-ui/react";
 
-const Home = () => {
-  return <div>Home page</div>;
-};
+import Main from "../homeComponents/Main";
+import MainCarousel from "../homeComponents/MainCarousel";
+import TopProfile from "../homeComponents/TopProfile";
 
+function Home() {
+  return (
+    <>
+      <Box
+        marginTop={{ base: "3rem", lg: "5rem" }}
+        p={{ base: "50px 10px", md: "8px 100px", lg: "8px 250px" }}
+        backgroundColor="#EEEEEE"
+      >
+        <Stack gap={2}>
+          <TopProfile />
+          <MainCarousel />
+          <Main />
+        </Stack>
+      </Box>
+    </>
+  );
+}
 export default Home;
