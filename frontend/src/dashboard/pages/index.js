@@ -23,4 +23,5 @@ export default function Home() {
 <center><button onClick={handleRe} style={{fontSize:"30px", color:"black"}}>Go to dashboard</button></center>
     </>
   )
+  
 }
