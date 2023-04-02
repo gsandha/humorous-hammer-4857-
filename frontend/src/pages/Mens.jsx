@@ -380,7 +380,7 @@ const Mens = () => {
                     alignItems="center"
                     justifyContent="center"
                   >
-                    <Link to={`/${item._id}`}>
+                    <Link to={`/mens/${item.id}`}>
                       {" "}
                       <Box
                         maxW="sm"
