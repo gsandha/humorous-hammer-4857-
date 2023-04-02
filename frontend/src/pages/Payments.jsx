@@ -132,8 +132,7 @@ const Payments = () => {
       </Box>
     </Flex>
 </div>
-
-                  </>
+</>
    
   )
 }

@@ -1,10 +1,17 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Navbar from "./components/Navbar";
-import Allroutes from "./components/Allroutes";
 import "react-toastify/dist/ReactToastify.css";
-
+import Allroutes from "./Routes/AllRoutes.jsx"
+import axios from "axios"
+import { useEffect } from "react";
+const Authenticate = async()=>{
+  const token = localStorage.getItem("userToken") || ""
+  axios.defaults.headers.common['Authorization'] = `${token}`;
+}
 function App() {
+  useEffect(()=>{
+    Authenticate()
+  },[])
   return (
     <div className="App">
       <Navbar />

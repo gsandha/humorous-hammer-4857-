@@ -7,7 +7,6 @@ import {
   Stack,
   Collapse,
   Icon,
-  Link,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -20,22 +19,28 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuDivider,
   Avatar,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
   CloseIcon,
   ChevronDownIcon,
-  ChevronRightIcon,
 } from "@chakra-ui/icons";
-import { HiShoppingCart, HiSearch, HiPencil } from "react-icons/hi";
+import { HiShoppingCart, HiSearch } from "react-icons/hi";
 // import logo from "../Assets/logo.png";
-import { Link as RLink } from "react-router-dom";
+import {Link}  from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
-
+  const {data} = useSelector((store)=>store.authManager)
+  const token = localStorage.getItem("userToken") || ""
+  const handleLogout = ()=>{
+    localStorage.removeItem("userToken")
+  }
+  useEffect(()=>{
+  },[token])
   return (
     <Box position="fixed" width="100%" top={0} zIndex={1}>
       <Flex
@@ -69,7 +74,7 @@ export default function Navbar() {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
           >
-            <RLink to="/">Cartify</RLink>
+            <Link to="/">Cartify</Link>
           </Text>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
@@ -96,10 +101,10 @@ export default function Navbar() {
             </Stack>
 
             <Stack alignItems="center">
-              <RLink to="/cart">
+              <Link to="/cart">
                 <HiShoppingCart size={34} />
                 <span>CART</span>
-              </RLink>
+              </Link>
             </Stack>
           </Stack>
           <Menu>
@@ -115,9 +120,7 @@ export default function Navbar() {
               <Stack alignItems="center">
                 <Avatar
                   size={"sm"}
-                  src={
-                    "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                  }
+                  name={`${data.name}` || 0}
                 />
                 <span
                   style={{ border: "none", fontSize: "11px", marginTop: "0px" }}
@@ -127,12 +130,12 @@ export default function Navbar() {
               </Stack>
             </MenuButton>
             <MenuList>
-              <RLink to="/login">
-                <MenuItem>Sign In</MenuItem>
-              </RLink>
-              <RLink to="/admin">
+              <Link to="/login">
+                {token===""?<MenuItem>Sign In</MenuItem>:<MenuItem onClick={()=>handleLogout()}>Log out</MenuItem>}
+              </Link>
+              <Link to="/admin">
                 <MenuItem>Admin Login</MenuItem>
-              </RLink>
+              </Link>
             </MenuList>
           </Menu>
 
@@ -180,7 +183,7 @@ const DesktopNav = () => {
   return (
     <Stack direction={"row"} spacing={4} alignItems="center">
       {NAV_ITEMS.map((navItem) => (
-        <RLink to="/mens">
+        <Link to="/mens">
           <Box key={navItem.label}>
             <Popover trigger={"hover"} placement={"bottom-start"}>
               <PopoverTrigger>
@@ -208,18 +211,18 @@ const DesktopNav = () => {
                   rounded={"xl"}
                   minW={"sm"}
                 >
-                  <RLink to="/mens">
+                  <Link to="/mens">
                     <Stack>
                       {navItem.children.map((child) => (
                         <DesktopSubNav key={child.label} {...child} />
                       ))}
                     </Stack>
-                  </RLink>
+                  </Link>
                 </PopoverContent>
               )}
             </Popover>
           </Box>
-        </RLink>
+        </Link>
       ))}
     </Stack>
   );
@@ -248,9 +251,9 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
           </Heading>
           {subLabel &&
             subLabel.map((childs) => (
-              <RLink to="/mens">
+              <Link to="/mens">
                 <Text fontSize={15}>{childs}</Text>
-              </RLink>
+              </Link>
             ))}
         </Box>
         {/* <Flex
@@ -315,7 +318,7 @@ const MobileNavItem = ({ label, children, href }) => {
       </Flex>
 
       <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
-        <RLink to="/products">
+        <Link to="/products">
           <Stack
             mt={2}
             pl={4}
@@ -331,7 +334,7 @@ const MobileNavItem = ({ label, children, href }) => {
                 </Link>
               ))}
           </Stack>
-        </RLink>
+        </Link>
       </Collapse>
     </Stack>
   );

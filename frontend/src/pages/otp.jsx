@@ -29,10 +29,10 @@ export const OtpPage = () => {
         email: location.state,
       };
       dispatch(loginUserData(data));
-      if (msg === "login successfully") {
+      if (token!=="") {
         localStorage.setItem("userToken", token);
         toast.success(`login successfully`);
-          navigate("/");
+        navigate("/");
       } else {
         toast.error("login failed try again");
       }

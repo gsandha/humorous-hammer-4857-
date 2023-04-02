@@ -5,7 +5,8 @@ const authState = {
     isError:false,
     isLoading:false,
     msg:"",
-    token:""
+    token:"",
+    data:{}
 }
 
 export const authReducer = (state=authState,{type,payload})=>{
@@ -35,7 +36,8 @@ export const authReducer = (state=authState,{type,payload})=>{
                 isAuth:true,
                 msg:payload.msg,
                 token:payload.token,
-                isLoading:false
+                isLoading:false,
+                data:payload.userData
             }
         }
         case LOGIN_ERROR:{
