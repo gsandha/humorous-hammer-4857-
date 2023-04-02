@@ -7,7 +7,7 @@ const Dashboard = ({product,userD}) => {
 const router = useRouter();
     let totalOrders = 1;
     let totalProducts = product.length || 0;
-    let totalUser = userD.length || 0;
+    let totalUser = +userD.length || 3;
 let sum =5300
 // money.map((el)=>{
 //     sum=el.price;
