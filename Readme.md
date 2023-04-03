@@ -1,7 +1,57 @@
 
-Deployed url - https://limeroad.vercel.app/
+Project Name:Cartify
 
-API - https://alert-seal-bandanna.cyclic.app/
+Team Members:
+
+Vicky Kumar
+Vishal Singh
+Kumar Sushant Shekhar
+Abhishek Kumar
+Gurpreetsingh Sandha
+
+Description:
+Cartify is an Indian online marketplace. It is a fashion marketplace for men,women and children. We have created Cartify as a part of our construct week project. It is a collaborative project done by group of 5 members. It took us 5 days to create Cartify from scratch. 
+
+The code for this project can be found in this repository, and we welcome any contributions or feedback.
+
+Links
+1.Deployed Link: https://limeroad.vercel.app/
+
+Tech Stack
+
+React
+Redux
+Chakra UI
+Node js
+Express 
+MongoDB
+HTML
+CSS
+
+Pages and Features
+Home Page: Carousel Slider
+Sign-Up Page: Sign-Up details stored to Database.
+Sign-In Page: Sign-In details authentication to check whether user's email ID and password match with the database.
+Product Category Page: Fetching products from database and appending on this page.
+Cart Page: User can see products added in the cart and remove a product from his cart.
+Search list : List of all items which match with search input
+Checkout Page: User can add the delivery address.
+Payment Page: User can add their payment details.
+Admin Page : Admin user can be able to perform CRUD operations .
+
+Screenshots
+
+Home Page:
+![Cartify HomePage](https://user-images.githubusercontent.com/112682355/229425423-432b02f6-87b3-4c5e-8224-1efe8283d6a1.PNG)
+
+Products Page:
+![Cartify Products](https://user-images.githubusercontent.com/112682355/229425621-e1b4a576-f942-4c9d-a44a-da09f6c50d07.PNG)
+
+Carts Page:
+![Cartify CartPage](https://user-images.githubusercontent.com/112682355/229425780-1c329bc6-0558-4280-9adc-85f95c85fa18.PNG)
+
+Authentication Page:
+![Cartify Authentication](https://user-images.githubusercontent.com/112682355/229425935-82731d8e-6742-423f-96de-a9c995b8c476.PNG)
 
 ---------------- Admin Login ----------
 Admin Url - https://limeroad-admin.vercel.app/dashboard 
@@ -10,59 +60,4 @@ Admin Url - https://limeroad-admin.vercel.app/dashboard
 email - admin@cartify.com
 pass - admin@123
 
-"orders": [
-    {
-      "id": 1,
-      "product_name": "Womens Black Leather Jacket",
-      "description": "A fashionable and warm black leather jacket for women",
-      "price": 99.99,
-      "size": "M",
-      "color": "Black",
-      "material": "Genuine Leather",
-      "image": "https://example.com/womens-leather-jacket.jpg",
-      "brand": "Zara",
-      "category": "Jackets",
-      "name": "sdf",
-      "email": "vicky@gmail.com",
-      "phone": "08123456789",
-      "address": "hajipur"
-    }
-  ],
-  
-
-  "users": [],
-  
-  
-  "cart": [
-    {
-      "id": 3,
-      "name": "V-Neck T-Shirt",
-      "description": "A flattering v-neck t-shirt",
-      "image": "https://img3.junaroad.com/uiproducts/18594838/zoom_0-1666006217.jpg",
-      "price": 18.99,
-      "color": "Navy",
-      "size": "L",
-      "brand": "brand C",
-      "category": "T-Shirts",
-      "discount": "30%"
-    }
-
-  ],
-  "Order_completed": [
-    {
-      "id": 1,
-      "title": "Sari",
-      "category": "Kurta",
-      "size": [
-        "36",
-        "40",
-        "45"
-      ],
-      "price": "1500",
-      "img": "https://img3.junaroad.com/uiproducts/19344368/zoom_0-1676438102.jpg",
-      "offprice": "30",
-      "desc": "namaskar ethnic kurta set",
-      "brand": "Spike",
-      "color": "Yellow"
-    }
-  ],
+API - https://alert-seal-bandanna.cyclic.app/
