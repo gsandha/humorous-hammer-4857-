@@ -1,34 +1,34 @@
 
-**Project Name:**Cartify\n
+**Project Name:**Cartify <br>
 
-**Team Members:**\n
+**Team Members:**<br>
 
-Vicky Kumar\n
-Vishal Singh\n
-Kumar Sushant Shekhar\n
-Abhishek Kumar\n
-Gurpreetsingh Sandha\n
+Vicky Kumar<br>
+Vishal Singh<br>
+Kumar Sushant Shekhar<br>
+Abhishek Kumar<br>
+Gurpreetsingh Sandha<br>
 
-**Description:**\n
-Cartify is an Indian online marketplace. It is a fashion marketplace for men,women and children. We have created Cartify as a part of our construct week project. It is a collaborative project done by group of 5 members. It took us 5 days to create Cartify from scratch. \n
+**Description:**<br>
+Cartify is an Indian online marketplace. It is a fashion marketplace for men,women and children. We have created Cartify as a part of our construct week project. It is a collaborative project done by group of 5 members. It took us 5 days to create Cartify from scratch. <br>
 
 The code for this project can be found in this repository, and we welcome any contributions or feedback.
 
-**Links**\n
+**Links**<br>
 1.Deployed Link: https://limeroad.vercel.app/
 
-**Tech Stack**\n
+**Tech Stack**<br>
 
-React\n
-Redux\n
-Chakra UI\n
-Node js\n
-Express\n
-MongoDB\n
-HTML\n
-CSS\n
+React<br>
+Redux<br>
+Chakra UI<br>
+Node js<br>
+Express<br>
+MongoDB<br>
+HTML<br>
+CSS<br>
 
-**Pages and Features**\n
+**Pages and Features**<br>
 Home Page: Carousel Slider
 Sign-Up Page: Sign-Up details stored to Database.
 Sign-In Page: Sign-In details authentication to check whether user's email ID and password match with the database.
@@ -39,7 +39,7 @@ Checkout Page: User can add the delivery address.
 Payment Page: User can add their payment details.
 Admin Page : Admin user can be able to perform CRUD operations .
 
-**Screenshots**\n
+**Screenshots**<br>
 
 Home Page:
 ![Cartify HomePage](https://user-images.githubusercontent.com/112682355/229425423-432b02f6-87b3-4c5e-8224-1efe8283d6a1.PNG)
