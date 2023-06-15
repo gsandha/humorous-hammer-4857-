@@ -7,7 +7,7 @@ const Productlist = ({data}) => {
 
   const router = useRouter();
   const Dlt = (id)=>{
-    axios.delete(`http://localhost:9090/user/${id}`)
+    axios.delete(`https://limeroad-backend.onrender.com/user/${id}`)
     router.push('/users')
   }
   return (<>
@@ -41,7 +41,7 @@ const Productlist = ({data}) => {
 export default Productlist
 
 export async function getStaticProps(context) {
-  const response = await axios.get(`http://localhost:9090/user`);
+  const response = await axios.get(`https://limeroad-backend.onrender.com/user`);
   const c = response.data.data;
   let data = c.slice(0,13)
   return {

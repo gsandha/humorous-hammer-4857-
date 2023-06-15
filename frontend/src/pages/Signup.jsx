@@ -8,11 +8,16 @@ import { registerUserData } from '../Redux/Authentication/auth.actions';
 
 const Register = () => {
   const [passhow,setPassShow] = useState(false);
-  const [inputdata,setInputdata] = useState({});
+  const [inputdata,setInputdata] = useState({
+    name:"",
+    email:"",
+    password:"",
+    gender:"",
+    age:"",
+    city:""
+  });
   const {msg} = useSelector((store)=>store.authManager)
-  console.log(msg)
   const navigate = useNavigate();
-  // console.log(inputdata)
 
   // dispatch function
   const dispatch = useDispatch()
@@ -23,14 +28,13 @@ const Register = () => {
     setInputdata({...inputdata,[name]:value})
   }
 
-
   // register data
   const handleSubmit = async(e)=>{
+    console.log(inputdata)
     e.preventDefault();
-    const {fname,email,password,gender,age,city} = inputdata;
+    const {name,email,password,gender,age,city} = inputdata;
 
-    if(fname === ""){
-        // console.log("ho")
+    if(name === ""){
         toast.error('Enter your name');
     }else if(email === ""){
       toast.error("Enter Your Email")

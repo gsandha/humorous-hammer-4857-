@@ -45,15 +45,15 @@ export async function getStaticProps(context) {
     // let orders = await data.data;
 
 // all products 
-let productOld = await axios.get(`http://localhost:9090/products`)
+let productOld = await axios.get(`https://limeroad-backend.onrender.com/products`)
 let product = await productOld.data;
 
 // // total earnings 
-// let earnings = await axios.get(`http://localhost:9090/Order_completed`)
+// let earnings = await axios.get(`https://limeroad-backend.onrender.com/Order_completed`)
 // let money = await earnings.data;
 
 // total users
-let user = await axios.get(`http://localhost:9090/user`)
+let user = await axios.get(`https://limeroad-backend.onrender.com/user`)
 let userD = await user.data;
     return {
       props: {product,userD}, // will be passed to the page component as props

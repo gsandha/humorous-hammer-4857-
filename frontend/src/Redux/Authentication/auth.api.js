@@ -1,13 +1,13 @@
 import axios from "axios";
 
 export const registerUser = async(data)=>{
-    const res = await axios.post(`https://alert-seal-bandanna.cyclic.app/user/register`,data)
+    const res = await axios.post(`https://limeroad-backend.onrender.com/user/register`,data)
     const {msg} = res.data
     return msg
 }
 
 export const loginUser = async(data)=>{
-    const res = await axios.post(`https://alert-seal-bandanna.cyclic.app/user/login`,data)
+    const res = await axios.post(`https://limeroad-backend.onrender.com/user/login`,data)
     const {msg,token} = res.data
     const userData = res.data.data
     // console.log(userData)
@@ -15,7 +15,7 @@ export const loginUser = async(data)=>{
 }
 
 export const sentOtpFunction = async(data)=>{
-    const res = await axios.post(`https://alert-seal-bandanna.cyclic.app/user/verify`,data)
+    const res = await axios.post(`https://limeroad-backend.onrender.com/user/verify`,data)
     const status = res.status
     console.log(res)
     return status

@@ -9,7 +9,7 @@ const Productlist = ({c}) => {
   const Dlt = async(id,item)=>{
     // axios.post(`http://localhost:9090/deleted`,item)
     // axios.delete(`http://localhost:9090/products/${id}`)
-      await fetch(`http://localhost:9090/products/${id}`, {
+      await fetch(`https://limeroad-backend.onrender.com/products/${id}`, {
         method: 'DELETE',
       })
         .then(response => {
@@ -64,7 +64,7 @@ const Productlist = ({c}) => {
 export default Productlist
 
 export async function getStaticProps(context) {
-  const response = await axios.get(`http://localhost:9090/products`);
+  const response = await axios.get(`https://limeroad-backend.onrender.com/products`);
   const data = response.data;
   let c = data.slice(0,13)
   return {

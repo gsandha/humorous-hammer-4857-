@@ -23,7 +23,7 @@ const Addproduct = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    fetch(`http://localhost:9090/products/`, {
+    fetch(`https://limeroad-backend.onrender.com/products/`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
